@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --background: white;
+  --text-primary: black;
+  --text-secondary: royalblue;
+  --accent: purple;
+}
+[data-theme="dark"] {
+  --background: black;
+  --text-primary: white;
+  --text-secondary: grey;
+  --accent: darkred;
+}
+
+.canvas {
+  background-color: var(--background);
+}
+
+.toolbox {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  user-select: none;
+  color: var(--text-primary);
+  font-weight: bold;
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbox button {
+  cursor: pointer;
+  padding: 6px;
+}
+
+.form-matrix {
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.form-matrix div {
+  display: flex;
+}
+
+.form-matrix input {
+  width: 100px;
+}
+
+.form-matrix button {
+  margin: 16px;
+  color: white;
+  background-color: green;
+  border: 1px black solid;
+  transition: all 0.5s;
+}
+
+button {
+  color: var(--text-primary);
+  background-color: var(--background);
+  border: 2px var(--text-primary) solid;
+  transition: all 0.5s;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+.app {
+  color: var(--text-primary);
+  background-color: var(--background);
+  height: 100%;
+  font-size: large;
+  font-weight: bold;
+  transition: all 0.5s;
+}
+
+.button-close-modal {
+  display: flex;
+  justify-content: end;
+}

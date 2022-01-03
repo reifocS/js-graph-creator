@@ -1,0 +1,16 @@
+export const ID_SIZE = 24;
+export const RADIUS = 20;
+export const NODE_COLOR = "green";
+export const LINK_COLOR = "red";
+export const LINE_WIDTH = 2;
+export const DARK = "dark";
+export const LIGHT = "light";
+export const DRAG = "drag";
+export const DEL = "del";
+export const ADD = "add";
+export const LINK = "link";
+export const DIRECTED = "directed";
+export const UNDIRECTED = "undirected";
+export const CONNECTOR = "connector";
+export const NODE = "node";
+export const LOCAL_STORAGE_KEY = "graph-creator-state";
