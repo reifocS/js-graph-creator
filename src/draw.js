@@ -60,9 +60,29 @@ export function drawLine(ctx, start, end, directed) {
   if (isAutoLink) {
     const s = start.x - RADIUS;
     const e = start.x + RADIUS;
+    // This is magic for now...
+    const angle = 121.3;
+    const headlen = 10;
+    let cp1 = { x: s - RADIUS, y: start.y - 2.4 * RADIUS };
+    let cp2 = { x: e + RADIUS, y: start.y - 2.4 * RADIUS };
+    ctx.strokeStyle = LINK_COLOR;
+    ctx.beginPath();
+    ctx.beginPath();
+    ctx.moveTo(s, start.y);
+    ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, e, start.y);
+    ctx.lineTo(
+      e - headlen * Math.cos(angle - Math.PI / 6),
+      start.y - headlen * Math.sin(angle - Math.PI / 6)
+    );
+    ctx.lineTo(e, start.y);
+    ctx.lineTo(
+      e - headlen * Math.cos(angle + Math.PI / 6),
+      start.y - headlen * Math.sin(angle + Math.PI / 6)
+    );
+    ctx.stroke();
     return;
   }
-  const headlen = 15;
+  const headlen = 10;
   const tox = end.x;
   const toy = end.y;
   const fromx = start.x;

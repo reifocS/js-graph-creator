@@ -37,7 +37,7 @@ import ChoseNodeModal from "./ChoseNodeModal";
 const nanoid = () => initialNanoid(ID_SIZE);
 
 const adjacency = [
-  [0, 1, 0],
+  [1, 0, 0],
   [1, 0, 0],
   [0, 1, 0]
 ];
@@ -340,16 +340,8 @@ function App() {
       if (!el) {
         return;
       }
-      const exists = appState.selectedElementIds.find((e) => e === el.id);
-      let newSelected;
       let newElems = [...appState.elements];
-      if (exists) {
-        newSelected = appState.selectedElementIds.filter((e) => {
-          return e !== el.id;
-        });
-      } else {
-        newSelected = [...appState.selectedElementIds, el.id];
-      }
+      let newSelected = [...appState.selectedElementIds, el.id];
 
       if (newSelected.length === 2) {
         const b = new Set([newSelected[0], newSelected[1]]);
