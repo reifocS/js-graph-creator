@@ -66,7 +66,7 @@ export function drawLine(ctx, start, end, directed) {
     let e = start.y + Math.sin(rad2) * RADIUS;
 
     // This is magic for now...
-    const angle = 120.9;
+    const angle = 1.6;
     const headlen = 10;
     let cp1 = { x: s1 - 2 * RADIUS, y: e1 - 1.6 * RADIUS };
     let cp2 = { x: s + 2 * RADIUS, y: e - 1.6 * RADIUS };
