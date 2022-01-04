@@ -8,4 +8,4 @@ https://js-graph-creator.vercel.app/
 - [ ] state machine
 - [ ] design review
 - [ ] algorithms vizualisation
-- [ ] allow loop
+- [x] allow loop
