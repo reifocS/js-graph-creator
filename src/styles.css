@@ -32,7 +32,7 @@ body {
   color: var(--text-primary);
   font-weight: bold;
   display: flex;
-  gap: 2px;
+  gap: 5px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
