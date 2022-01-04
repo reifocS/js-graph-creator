@@ -55,7 +55,7 @@ function lineDistance(p1, p2) {
   return Math.hypot(p2.x - p1.x, p2.y - p1.y);
 }
 
-export function drawLine(ctx, start, end, directed, label) {
+export function drawLine(ctx, start, end, directed, label, selected) {
   const isAutoLink = start.id === end.id;
   if (isAutoLink) {
     const rad1 = -Math.PI / 6;
@@ -109,7 +109,7 @@ export function drawLine(ctx, start, end, directed, label) {
     angle
   );
   ctx.beginPath();
-  ctx.strokeStyle = LINK_COLOR;
+  ctx.strokeStyle = selected ? "blue" : LINK_COLOR;
   ctx.moveTo(x1, y1);
   ctx.lineTo(x2, y2);
   if (directed) {
@@ -141,9 +141,10 @@ export function draw(ctx, appState, w, h) {
   ctx.clearRect(0, 0, w, h);
   ctx.lineWidth = LINE_WIDTH;
   elements.forEach((el) => {
+    const isSelected = selectedElementIds.find((e) => e === el.id);
+    const isFocused = selectedNode?.id === el.id;
+
     if (el.type === NODE) {
-      const isSelected = selectedElementIds.find((e) => e === el.id);
-      const isFocused = selectedNode?.id === el.id;
       drawCircle(
         ctx,
         el.x,
@@ -159,7 +160,7 @@ export function draw(ctx, appState, w, h) {
       const start = elements.find((e1) => e1.id === el.start);
       const end = elements.find((e1) => e1.id === el.end);
 
-      drawLine(ctx, start, end, graphType === DIRECTED, el.label);
+      drawLine(ctx, start, end, graphType === DIRECTED, el.name, isFocused);
     }
   });
 }

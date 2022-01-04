@@ -107,7 +107,7 @@ export function createStateFromMatrix(matrix) {
 const initialElements = createStateFromMatrix(adjacency);
 initialElements.forEach((el) => {
   if (el.type === CONNECTOR) {
-    el.label = "1";
+    el.name = "1";
   }
 });
 let id;
@@ -231,7 +231,8 @@ function App() {
 
   const handlePointerDown = (e) => {
     const [startX, startY] = getCoordinatesFromEvent(e, canvasRef.current);
-    const el = doesItHit(startX, startY);
+    const el = doesItHit(startX, startY) || doesItHitLink(startX, startY);
+    console.log(el);
     if (mode === DRAG) {
       if (el !== appState.selectedNode) {
         updateStateAndDraw({
