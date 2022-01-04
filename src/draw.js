@@ -60,16 +60,16 @@ export function drawLine(ctx, start, end, directed) {
   if (isAutoLink) {
     const rad1 = -Math.PI / 6;
     const rad2 = (-5 * Math.PI) / 6;
-    let s1 = start.x + Math.cos(rad1) * RADIUS;
-    let e1 = start.y + Math.sin(rad1) * RADIUS;
-    let s = start.x + Math.cos(rad2) * RADIUS;
-    let e = start.y + Math.sin(rad2) * RADIUS;
+    const s1 = start.x + Math.cos(rad1) * RADIUS;
+    const e1 = start.y + Math.sin(rad1) * RADIUS;
+    const s = start.x + Math.cos(rad2) * RADIUS;
+    const e = start.y + Math.sin(rad2) * RADIUS;
 
     // This is magic for now...
     const angle = 1.6;
     const headlen = 10;
-    let cp1 = { x: s1 - 2 * RADIUS, y: e1 - 1.6 * RADIUS };
-    let cp2 = { x: s + 2 * RADIUS, y: e - 1.6 * RADIUS };
+    const cp1 = { x: s1 - 2 * RADIUS, y: e1 - 1.6 * RADIUS };
+    const cp2 = { x: s + 2 * RADIUS, y: e - 1.6 * RADIUS };
     ctx.strokeStyle = LINK_COLOR;
     ctx.beginPath();
     ctx.moveTo(s, e);
