@@ -105,6 +105,11 @@ export function createStateFromMatrix(matrix) {
 }
 
 const initialElements = createStateFromMatrix(adjacency);
+initialElements.forEach((el) => {
+  if (el.type === CONNECTOR) {
+    el.label = "1";
+  }
+});
 let id;
 try {
   id =

@@ -55,7 +55,7 @@ function lineDistance(p1, p2) {
   return Math.hypot(p2.x - p1.x, p2.y - p1.y);
 }
 
-export function drawLine(ctx, start, end, directed) {
+export function drawLine(ctx, start, end, directed, label) {
   const isAutoLink = start.id === end.id;
   if (isAutoLink) {
     const rad1 = -Math.PI / 6;
@@ -84,6 +84,13 @@ export function drawLine(ctx, start, end, directed) {
       e1 - headlen * Math.sin(angle + Math.PI / 6)
     );
     ctx.stroke();
+    if (label) {
+      ctx.fillText(
+        label,
+        start.x,
+        start.y - RADIUS + Math.sin(-Math.PI / 2) * RADIUS
+      );
+    }
     return;
   }
   const headlen = 10;
@@ -116,8 +123,17 @@ export function drawLine(ctx, start, end, directed) {
       y2 - headlen * Math.sin(angle + Math.PI / 6)
     );
   }
+  const { x: midX, y: midY } = lineToAngle(
+    fromx,
+    fromy,
+    (lineDistance(start, end) - RADIUS) / 2,
+    angle
+  );
 
   ctx.stroke();
+  if (label) {
+    ctx.fillText(label, midX, midY);
+  }
 }
 
 export function draw(ctx, appState, w, h) {
@@ -143,7 +159,7 @@ export function draw(ctx, appState, w, h) {
       const start = elements.find((e1) => e1.id === el.start);
       const end = elements.find((e1) => e1.id === el.end);
 
-      drawLine(ctx, start, end, graphType === DIRECTED);
+      drawLine(ctx, start, end, graphType === DIRECTED, el.label);
     }
   });
 }
