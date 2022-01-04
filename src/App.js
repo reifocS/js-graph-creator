@@ -434,7 +434,7 @@ function App() {
 
   function renderCanvas() {
     const canvasWidth = window.innerWidth;
-    const canvasHeight = window.innerHeight;
+    const canvasHeight = window.innerHeight - 5;
 
     return (
       <canvas
@@ -503,10 +503,10 @@ function App() {
           disabled={appState.selectedNode === null}
           type="button"
         >
-          edit node
+          edit
         </button>
         <button onClick={() => setEditingMatrix(true)} type="button">
-          create from matrix
+          create
         </button>
         <button
           onClick={() => {
@@ -536,9 +536,7 @@ function App() {
           <option value={UNDIRECTED}>undirected</option>
           <option value={DIRECTED}>directed</option>
         </select>
-        <button onClick={switchTheme}>
-          Switch to {theme === LIGHT ? DARK : LIGHT} Theme
-        </button>
+        <button onClick={switchTheme}>switch theme</button>
         <button
           onClick={() => {
             const h = window.innerHeight * 0.8;
@@ -554,13 +552,13 @@ function App() {
             updateStateAndDraw(newState);
           }}
         >
-          Change Layout
+          change layout
         </button>
         <button disabled={isDemo} onClick={() => triggerAlgo("DFS")}>
-          Show DFS
+          DFS
         </button>
         <button disabled={isDemo} onClick={() => setChosingNode(true)}>
-          Show BFS
+          BFS
         </button>
       </div>
       <div className="canvas-container">{renderCanvas()}</div>
