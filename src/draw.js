@@ -58,26 +58,30 @@ function lineDistance(p1, p2) {
 export function drawLine(ctx, start, end, directed) {
   const isAutoLink = start.id === end.id;
   if (isAutoLink) {
-    const s = start.x - RADIUS;
-    const e = start.x + RADIUS;
+    const rad1 = -Math.PI / 6;
+    const rad2 = (-5 * Math.PI) / 6;
+    let s1 = start.x + Math.cos(rad1) * RADIUS;
+    let e1 = start.y + Math.sin(rad1) * RADIUS;
+    let s = start.x + Math.cos(rad2) * RADIUS;
+    let e = start.y + Math.sin(rad2) * RADIUS;
+
     // This is magic for now...
-    const angle = 121.3;
+    const angle = 120.9;
     const headlen = 10;
-    let cp1 = { x: s - RADIUS, y: start.y - 2.4 * RADIUS };
-    let cp2 = { x: e + RADIUS, y: start.y - 2.4 * RADIUS };
+    let cp1 = { x: s1 - 2 * RADIUS, y: e1 - 1.6 * RADIUS };
+    let cp2 = { x: s + 2 * RADIUS, y: e - 1.6 * RADIUS };
     ctx.strokeStyle = LINK_COLOR;
     ctx.beginPath();
-    ctx.beginPath();
-    ctx.moveTo(s, start.y);
-    ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, e, start.y);
+    ctx.moveTo(s, e);
+    ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, s1, e1);
     ctx.lineTo(
-      e - headlen * Math.cos(angle - Math.PI / 6),
-      start.y - headlen * Math.sin(angle - Math.PI / 6)
+      s1 - headlen * Math.cos(angle - Math.PI / 6),
+      e1 - headlen * Math.sin(angle - Math.PI / 6)
     );
-    ctx.lineTo(e, start.y);
+    ctx.lineTo(s1, e1);
     ctx.lineTo(
-      e - headlen * Math.cos(angle + Math.PI / 6),
-      start.y - headlen * Math.sin(angle + Math.PI / 6)
+      s1 - headlen * Math.cos(angle + Math.PI / 6),
+      e1 - headlen * Math.sin(angle + Math.PI / 6)
     );
     ctx.stroke();
     return;
