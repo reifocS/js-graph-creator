@@ -116,6 +116,7 @@ try {
   console.error(e);
   id = adjacency.length;
 }
+const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 function App() {
   const canvasRef = React.useRef();
@@ -134,7 +135,6 @@ function App() {
   const [choseNode, setChosingNode] = React.useState(false);
   const [, forceUpdate] = React.useState(0);
 
-  const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const [theme, setTheme] = useLocalStorage(
     "theme",
     defaultDark ? DARK : LIGHT
@@ -227,8 +227,7 @@ function App() {
 
   const handlePointerDown = (e) => {
     const [startX, startY] = getCoordinatesFromEvent(e, canvasRef.current);
-    const el = doesItHit(startX, startY) || doesItHitLink(startX, startY);
-    console.log(el);
+    const el = doesItHitCircle(startX, startY) || doesItHitLink(startX, startY);
     if (mode === DRAG) {
       if (el !== appState.selectedNode) {
         updateStateAndDraw({
@@ -304,7 +303,7 @@ function App() {
 
   const handleClick = (e) => {
     const [startX, startY] = getCoordinatesFromEvent(e, canvasRef.current);
-    const el = doesItHit(startX, startY);
+    const el = doesItHitCircle(startX, startY);
     const link = doesItHitLink(startX, startY);
     if (mode === ADD) {
       addNewNode(e.clientX, e.clientY);
@@ -376,7 +375,7 @@ function App() {
     }
   };
 
-  const doesItHit = (x, y) => {
+  const doesItHitCircle = (x, y) => {
     let { elements } = appState;
     elements = elements.filter((e) => e.type === NODE);
     let elem = null;
@@ -392,6 +391,7 @@ function App() {
     let { elements } = appState;
     elements = elements.filter((e) => e.type === CONNECTOR);
     const ctx = canvasRef.current.getContext("2d");
+    ctx.lineWidth = 20;
     let elem = null;
     for (const el of elements) {
       const path = new Path2D();
@@ -400,10 +400,10 @@ function App() {
       if (start.id === end.id) {
         const rad1 = -Math.PI / 6;
         const rad2 = (-5 * Math.PI) / 6;
-        const s1 = start.x + Math.cos(rad1) * RADIUS;
-        const e1 = start.y + Math.sin(rad1) * RADIUS;
         const s = start.x + Math.cos(rad2) * RADIUS;
         const e = start.y + Math.sin(rad2) * RADIUS;
+        const s1 = start.x + Math.cos(rad1) * RADIUS;
+        const e1 = start.y + Math.sin(rad1) * RADIUS;
         const cp1 = { x: s1 - 2 * RADIUS, y: e1 - 1.6 * RADIUS };
         const cp2 = { x: s + 2 * RADIUS, y: e - 1.6 * RADIUS };
         path.moveTo(s, e);
@@ -412,7 +412,6 @@ function App() {
         path.moveTo(start.x, start.y);
         path.lineTo(end.x, end.y);
       }
-      ctx.lineWidth = 20;
       if (ctx.isPointInStroke(path, x, y)) {
         elem = el;
       }
