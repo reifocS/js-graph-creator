@@ -26,15 +26,16 @@ body {
 
 .toolbox {
   position: absolute;
-  top: 10px;
-  width: 100%;
   user-select: none;
   color: var(--text-primary);
   font-weight: bold;
   display: flex;
   gap: 5px;
+  right: 0px;
   flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
+  height: 100%;
   justify-content: center;
 }
 

@@ -4,7 +4,8 @@ import {
   LINK_COLOR,
   LINE_WIDTH,
   NODE,
-  DIRECTED
+  DIRECTED,
+  SELECTED_COLOR
 } from "./constant";
 
 export function drawCircle(
@@ -23,8 +24,8 @@ export function drawCircle(
   if (fill) {
     if (selected) {
       ctx.fillStyle = "blue";
-      ctx.strokeStyle = "pink";
-      ctx.lineWidth = "10";
+      ctx.strokeStyle = SELECTED_COLOR;
+      ctx.lineWidth = "6";
       ctx.stroke();
       ctx.lineWidth = LINE_WIDTH;
     } else {
@@ -70,7 +71,7 @@ export function drawLine(ctx, start, end, directed, label, selected) {
     const headlen = 10;
     const cp1 = { x: s1 - 2 * RADIUS, y: e1 - 1.6 * RADIUS };
     const cp2 = { x: s + 2 * RADIUS, y: e - 1.6 * RADIUS };
-    ctx.strokeStyle = LINK_COLOR;
+    ctx.strokeStyle = selected ? SELECTED_COLOR : LINK_COLOR;
     ctx.beginPath();
     ctx.moveTo(s, e);
     ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, s1, e1);
@@ -109,7 +110,7 @@ export function drawLine(ctx, start, end, directed, label, selected) {
     angle
   );
   ctx.beginPath();
-  ctx.strokeStyle = selected ? "blue" : LINK_COLOR;
+  ctx.strokeStyle = selected ? SELECTED_COLOR : LINK_COLOR;
   ctx.moveTo(x1, y1);
   ctx.lineTo(x2, y2);
   if (directed) {

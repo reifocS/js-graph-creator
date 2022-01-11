@@ -25,15 +25,11 @@ import ChoseNodeModal from "./ChoseNodeModal";
 //import useWindowSize from "./useWindowSize";
 
 //TODO
-// Resize canvas when resizing window
 // add zoom
-// handle auto link
-// add label on link
 // smart node positionning
 // redo
-// change layout for graph created
-// visualization of DFS/BFS
-
+// curve two way links
+// refactor hitting detection (single function, factorizing path creation)
 const nanoid = () => initialNanoid(ID_SIZE);
 
 const adjacency = [
@@ -401,8 +397,21 @@ function App() {
       const path = new Path2D();
       const start = appState.elements.find((e1) => e1.id === el.start);
       const end = appState.elements.find((e1) => e1.id === el.end);
-      path.moveTo(start.x, start.y);
-      path.lineTo(end.x, end.y);
+      if (start.id === end.id) {
+        const rad1 = -Math.PI / 6;
+        const rad2 = (-5 * Math.PI) / 6;
+        const s1 = start.x + Math.cos(rad1) * RADIUS;
+        const e1 = start.y + Math.sin(rad1) * RADIUS;
+        const s = start.x + Math.cos(rad2) * RADIUS;
+        const e = start.y + Math.sin(rad2) * RADIUS;
+        const cp1 = { x: s1 - 2 * RADIUS, y: e1 - 1.6 * RADIUS };
+        const cp2 = { x: s + 2 * RADIUS, y: e - 1.6 * RADIUS };
+        path.moveTo(s, e);
+        path.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, s1, e1);
+      } else {
+        path.moveTo(start.x, start.y);
+        path.lineTo(end.x, end.y);
+      }
       ctx.lineWidth = 20;
       if (ctx.isPointInStroke(path, x, y)) {
         elem = el;
