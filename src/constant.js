@@ -14,4 +14,4 @@ export const UNDIRECTED = "undirected";
 export const CONNECTOR = "connector";
 export const NODE = "node";
 export const LOCAL_STORAGE_KEY = "graph-creator-state";
-export const SELECTED_COLOR = "yellow";
+export const SELECTED_COLOR = "BLUE";

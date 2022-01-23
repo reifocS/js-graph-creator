@@ -86,6 +86,7 @@ export function drawLine(ctx, start, end, directed, label, selected) {
     );
     ctx.stroke();
     if (label) {
+      ctx.fillStyle = "green";
       ctx.fillText(
         label,
         start.x,
